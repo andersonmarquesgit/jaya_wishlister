@@ -28,13 +28,23 @@ public class VenueBean {
 	@PostConstruct
 	public void init(){
 		accessToken = loginBean.getAccessToken();
-		listUrlPhotosVenues(accessToken);
+		searchVenuesRecent(accessToken);
+		searchVenuesWishlist();
 	}
 	
-	private void listUrlPhotosVenues(String accessToken) {
-		listVenuesRecent = venueService.listUrlPhotosVenue(accessToken);
+	private void searchVenuesRecent(String accessToken) {
+		listVenuesRecent = venueService.searchVenuesRecent(accessToken);
+	}
+	
+	private void searchVenuesWishlist() {
+		listVenuesWishlist = venueService.searchVenuesWishlist();
 	}
 
+	public void addFavorite(Venue venue) {
+		venueService.addWishlist(venue);
+		searchVenuesWishlist();
+	}
+	
 	public List<Venue> getListVenuesRecent() {
 		return listVenuesRecent;
 	}

@@ -14,9 +14,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wishlister.model.Venue;
+import com.wishlister.repository.VenueRepository;
 
 @Service
 public class VenueService {
@@ -33,7 +36,10 @@ public class VenueService {
 	
 	public String accessToken;
 	
-	public List<Venue> listUrlPhotosVenue(String accessToken) {
+	@Autowired
+	private VenueRepository venueRepository;
+	
+	public List<Venue> searchVenuesRecent(String accessToken) {
 		this.accessToken = accessToken;
 		return addListUrlPhotosVenue();
 	}
@@ -48,15 +54,10 @@ public class VenueService {
             Venue venue = new Venue();
             venue.setVenueId((String) jsonVenue.get("id"));
             venue.setName((String) jsonVenue.get("name"));
-            listUrlPhotosVenue.addAll(getPhotoVenue(venue));
+            listUrlPhotosVenue.addAll(getPhotoVenues(venue));
         }
         
         return listUrlPhotosVenue;
-	}
-	
-	public List<Venue> getPhotoVenue(Venue venue) {
-		List<Venue> listUrlPhotoVenue = getPhotoVenues(venue);
-		return listUrlPhotoVenue;
 	}
 	
 	public List<Venue> getPhotoVenues(Venue venue) {
@@ -89,11 +90,11 @@ public class VenueService {
 			}
 			
 			return listUrlPhotoVenue;
+			
 		} catch (IOException | ParseException e) {
 			log.info("Erro de captura dos dados: ", e);
+			return new ArrayList<>();
 		}
-		
-		return listUrlPhotoVenue;
 	}
 	
 	private JSONObject getVenuesUserlessAuth() {
@@ -112,6 +113,15 @@ public class VenueService {
 		}
 		
 		return null;
+	}
+
+	@Transactional
+	public void addWishlist(Venue venue) {
+		venueRepository.saveAndFlush(venue);
+	}
+	
+	public List<Venue> searchVenuesWishlist() {
+		return venueRepository.findAll();
 	}
 
 }

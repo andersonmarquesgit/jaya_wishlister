@@ -17,12 +17,12 @@ public class LoginService {
 	
 	private static final String CLIENT_ID = "NJAGQQMCRVCL3KCTZHDQRDVAPHELDBRNZGC2IUTRL24QTUMI";
 	private static final String CLIENT_SECRET = "W2MGLX2SILICB4S52HJ30UWEX13HZAWSO3H2C1FLSGWWNT5K";
-	private static final String YYYYMMDD = "20171014";
+	private static final String YYYYMMDD = "20171018";
 	private static final String REDIRECT_URI = "http://localhost:3000/jaya-wishlister/pages/venues.faces";
 	
 	private static final Logger log = Logger.getLogger(LoginService.class);
 	
-	private String accessToken;
+	private String accessToken;	
 	
 	public String getAcessTokenByCode(String code) {
 		try {

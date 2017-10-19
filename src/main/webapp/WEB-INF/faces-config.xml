@@ -29,5 +29,9 @@
 		</system-event-class>
 		<source-class>javax.faces.component.UIViewRoot</source-class>
 	</system-event-listener>
+	
+	<lifecycle>
+   		<phase-listener>com.wishlister.lifecycle.LifeCycleListener</phase-listener>
+   	</lifecycle>
 </faces-config>
 
