@@ -120,8 +120,12 @@ public class VenueService {
 		venueRepository.saveAndFlush(venue);
 	}
 	
+	@Transactional
+	public void removeWishlist(Venue venue) {
+		venueRepository.delete(venue);
+	}
+	
 	public List<Venue> searchVenuesWishlist() {
 		return venueRepository.findAll();
 	}
-
 }

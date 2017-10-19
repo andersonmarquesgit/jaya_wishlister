@@ -17,16 +17,16 @@
 		<div class="panel-heading">Wishlist</div>
 		<div class="panel-body">
 			<h:form id="formVenueWishlist">
-				<p:dataGrid var="venueRecent" value="#{venueBean.listVenuesWishlist}" columns="6"
+				<p:dataGrid var="venueWishlist" value="#{venueBean.listVenuesWishlist}" columns="6"
 					layout="grid" rows="24" paginator="true" id="venuesWishlist"	
 					paginatorPosition="bottom" rowsPerPageTemplate="6,12,16">
 		
-					<p:panel header="#{venueRecent.name}" style="text-align:center">
+					<p:panel header="#{venueWishlist.name}" style="text-align:center">
 						<h:panelGrid columns="1" style="width:100%">
-							<p:graphicImage url="#{venueRecent.urlPhoto}" width="120px" height="120px" />
+							<p:graphicImage url="#{venueWishlist.urlPhoto}" width="120px" height="120px" />
 						</h:panelGrid>
-						<h:commandButton id="btnDel" value="Del" styleClass="btn btn-primary" style="width:67%"
-							actionListener="#{venueBean.addFavorite(venueRecent)}" />
+						<h:commandButton id="btnDel" value="Del" styleClass="btn btn-danger" style="width:67%"
+							actionListener="#{venueBean.removeFavorite(venueWishlist)}" />
 					</p:panel>
 				</p:dataGrid>
 			</h:form>
@@ -42,11 +42,12 @@
 					layout="grid" rows="24" paginator="true" id="venues"	
 					paginatorPosition="bottom" rowsPerPageTemplate="6,12,16">
 		
-					<p:panel header="#{venue.name}" style="text-align:center">
+					<p:panel header="#{venueRecent.name}" style="text-align:center">
 						<h:panelGrid columns="1" style="width:100%">
-							<p:graphicImage url="#{venue.urlPhoto}" width="120px" height="120px" />
+							<p:graphicImage url="#{venueRecent.urlPhoto}" width="120px" height="120px" />
 						</h:panelGrid>
-						<p:commandButton id="btnSalvar" value="Add" styleClass="btn btn-primary" style="width:67%" />
+						<p:commandButton id="btnSalvar" value="Add" styleClass="btn btn-primary" style="width:67%"
+							actionListener="#{venueBean.addFavorite(venueRecent)}" />
 					</p:panel>
 				</p:dataGrid>
 			</h:form>
